@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>那年，为你读诗 - 个人单曲展示</title>
+    <style>
+        :root {
+            --primary-color: #ff9a9e;
+            --secondary-color: #fad0c4;
+            --accent-color: #fbc2eb;
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            /* City Pop 经典配色：落日粉紫渐变 */
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* 装饰背景圆圈 */
+        .circle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* 播放器主卡片 */
+        .player-card {
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .artwork {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            animation: rotate 10s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .playing .artwork {
+            animation-play-state: running;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 { font-size: 1.8rem; margin: 10px 0; letter-spacing: 2px; }
+        .tagline { font-size: 0.9rem; opacity: 0.8; margin-bottom: 25px; }
+
+        /* 歌词滚动区域 */
+        .lyrics-container {
+            height: 200px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 1rem;
+            line-height: 1.8;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            scrollbar-width: none; /* Firefox */
+        }
+        .lyrics-container::-webkit-scrollbar { display: none; } /* Chrome */
+
+        .lyrics-content {
+            padding: 40px 0;
+            white-space: pre-line;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            filter: sepia(20%) saturate(70%) hue-rotate(250deg) opacity(0.8);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景装饰点缀 -->
+    <div class="circle" style="width: 200px; height: 200px; top: -50px; left: -50px;"></div>
+    <div class="circle" style="width: 150px; height: 150px; bottom: 50px; right: -30px;"></div>
+
+    <div class="player-card" id="playerCard">
+        <div class="artwork">📻</div>
+        <h1>那年，为你读诗</h1>
+        <div class="tagline">City Pop • Dreamy • Melancholic</div>
+
+        <div class="lyrics-container">
+            <div class="lyrics-content">
+(Verse 1)
+风 又吹回 那年 夏天的 梦境
+两个 失眠的 影子 在夜色里 听
+没有 弹窗 的打扰 也没多余 说明
+只有 频率 在 那一刻 达成 共鸣
+
+(Pre-Chorus)
+有人 在喧嚣中 写下 “梦里相见” 的 约定
+有人 隔着屏幕 回应 “站在身边” 的 安静
+那是 只有我们 才能 解开的 加密 口令
+在 这个世界里 最 隐秘的 清醒
+
+(Chorus)
+后来 还有谁会 为你读诗
+在 平凡的 日子里 留住 那一点 痴
+当 月亮 升起 当 现实 变得 太真实
+别忘了 你依然 拥有 仰望 星空的 钥匙
+
+(Bridge)
+不用 回头 也 不必 解释
+那段 同行的 路 是 最好的 恩赐
+萨特的 书签 夹在 翻过 的那一页纸
+把 心事 藏进 沉默的 格式
+
+(Outro)
+去吧 走向 你的 幸福 坦途
+哪怕 我们 已 身在 不同的 经纬度
+这就 够了...
+            </div>
+        </div>
+
+        <!-- 这里的 src 改成你的 mp3 文件名 -->
+        <audio controls id="mainAudio">
+            <source src="music.mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放。
+        </audio>
+
+        <footer>Powered by GitHub Pages | 2024</footer>
+    </div>
+
+    <script>
+        const audio = document.getElementById('mainAudio');
+        const card = document.getElementById('playerCard');
+
+        // 播放时旋转封面
+        audio.onplay = () => card.classList.add('playing');
+        audio.onpause = () => card.classList.remove('playing');
+    </script>
+</body>
+</html>
